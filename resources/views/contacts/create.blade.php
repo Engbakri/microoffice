@@ -25,7 +25,7 @@
 
                     <div class="form-group" >
                         <label for="exampleFormControlTextarea1">نص الرسالة</label>
-                        <textarea class="form-control ck-editor__editable_inline" name="message" rows="10"  id="froala"></textarea>
+                        <textarea class="form-control" name="message" rows="10"  id="editor"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">ارفاق صورة</label>

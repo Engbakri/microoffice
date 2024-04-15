@@ -105,13 +105,28 @@
 <script>
     ClassicEditor
     .create( document.querySelector( '#editor' ), {
+      toolbar: {
+    items: [
+        'undo', 'redo',
+        '|', 'heading',
+        '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+        '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+        '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
+        '|', 'alignment',
+        '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+    ],
+    shouldNotGroupWhenFull: true
+},
+
         language: {
             // The UI will be English.
-            ui: 'en',
+            ui: 'ar',
 
             // But the content will be edited in Arabic.
             content: 'ar'
-        }
+        },
+       
+		
     } )
     .then( editor => {
         window.editor = editor;
@@ -122,87 +137,62 @@
 </script>
 
 <script type='text/javascript' src="{{ asset('froala/froala_editor.min.js') }}"></script>  	
-      <script>
-        const username = userName();
 
-let error, during_error;
+<script>
 
-function initEditor(){
-  error = false;
-  const  codox1 = new Codox();
-  window.codox1 = codox1;
-  let editor = new FroalaEditor('#editor1', {
-    key: "mPD4tE1F2D1E1I2B4ssD-13vvdpxB3qvfA4A3G3I3F2B6B3C4C3A2==",
-    height: 300,
-    documentReady: true,
-    //add events configuration
-    events: {
-      //setting up on initialization event
-      'initialized': function() {
-        //Adding Wave configuration
-        var config = {
-          "docId"    : "3e6bd2d0990423c9c16a35985140775f",
-          "username" : username,
-          "editor"   : editor,
-          "apiKey"   : "58e429b0-be4a-4cd8-8c8d-9a37fb0adec0",
-          "app"      : "froala",
-        };
-        //start!
-        codox1.init(config);
-      }
+  var changeDirection = function (dir, align) {
+  // Wrap block tags.
+  this.selection.save();
+  this.html.wrap(true, true, true, true);
+  this.selection.restore();
+
+  // Get blocks.
+  var elements = this.selection.blocks();
+
+  // Save selection to restore it later.
+  this.selection.save();
+
+  for (var i = 0; i < elements.length; i++) {
+    var element = elements[i];
+    if (element != this.el) {
+      this.$(element)
+        .css('direction', dir)
+        .css('text-align', align)
+        .removeClass('fr-temp-div');
     }
-  });
+  }
 
-  codox1.on('users_update', function(users){
-    console.log('site1 users', users)
-  });
+  // Unwrap temp divs.
+  this.html.unwrap();
 
-  codox1.on("error", function(data){
-    if (data.message === 'max_sessions_exceeded'){
-      //emitted whenever it is over the montly quota
-      console.log('max_sessions_exceeded');
-            $('.co-editor-demo-message').html('We are sorry, The real-time collaboration demo will not work because number of sessions is over the monthly quota in our codox.io plan.').show();
-
-    }else if (data.message === 'session_full'){
-      //emitted whenever remote changes have updated the document
-      $('.co-editor-demo-message').html('The real-time collaboration demo will not work because the number of users exceeds the allowed number of users/session in the codox.io plan we subscribed to, Wait a little until one of the users leaves the page.').show();
-
-      if (editor) {
-        editor.destroy();
-        codox1.stop();
-        error = 'session_is_full';
-      }      
-    }
-  });
-  
+  // Restore selection.
+  this.selection.restore();
 }
 
+FroalaEditor.DefineIcon('rightToLeft', {NAME: 'arrow-left', template: 'font_awesome'});
+FroalaEditor.RegisterCommand('rightToLeft', {
+  title: 'RTL',
+  focus: true,
+  undo: true,
+  refreshAfterCallback: true,
+  callback: function () {
+    changeDirection.apply(this, ['rtl', 'right']);
+  }
+})
 
-function displayEditor(){
-
-    $('#editor1').fadeIn();
-  	clearInterval(during_error);
-    $('.co-editor-demo-message').hide();
-
-}
-
-   
-function userName() {
-  const names = ['Andy','David','Kegan','Yann', 'Robert'];
-  const index = Math.floor(Math.random() * 5);
-  return names[index];
-
-}
-
-
-$(function() {
-	initEditor();
-  during_error = setInterval(function(){ 
-    if (error === 'session_is_full') {
-     initEditor();
-    }else{
-    	displayEditor()
-    }
-  }, 10000);
-});
-      </script>	
+FroalaEditor.DefineIcon('leftToRight', {NAME: 'arrow-right', template: 'font_awesome'});
+FroalaEditor.RegisterCommand('leftToRight', {
+  title: 'LTR',
+  focus: true,
+  undo: true,
+  refreshAfterCallback: true,
+  callback: function () {
+    changeDirection.apply(this, ['ltr', 'left']);
+  }
+})
+  var editor = new FroalaEditor('#froala', {
+  // Set custom buttons with separator between them. Also include the name
+  // of the buttons  defined in customButtons.
+  toolbarButtons: ['undo', 'redo' , 'bold', 'formatOL', 'formatUL', '|', 'rightToLeft', 'leftToRight'],
+})  
+</script>

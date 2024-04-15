@@ -69,9 +69,12 @@ class AdsController extends Controller
      * @param  \App\Models\Ads  $ads
      * @return \Illuminate\Http\Response
      */
-    public function show(Ads $ads)
+    public function show($id)
     {
-        //
+        $ads = Ads::find($id);
+        $extension = pathinfo(storage_path($ads->ads_image), PATHINFO_EXTENSION);
+       // dd($ads->ads_title);
+        return view('ads.show',compact('ads','extension'));
     }
 
     /**

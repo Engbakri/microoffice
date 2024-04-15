@@ -16,7 +16,7 @@
             <th class="text-center">المدة</th>
             <th class="text-center">الموظف</th>
             <th class="text-center">الحالة</th>
-            <th class="text-center">حالة الموظف</th>
+            <th class="text-center">حالة المهمة</th>
         </tr>
         </thead>
         <tbody>
