@@ -17,10 +17,11 @@ class EmptaskController extends Controller
      */
     public function index()
     {
-        $tasks = User::find(Auth()->user()->id)->tasks;
-
-              $status = UsersTask::get();
+        $tasks = User::find(Auth()->user()->id)->tasks->sortByDesc('id');
         
+        $status = UsersTask::get();
+        
+     //   dd($tasks);
       
         return view('mytasks.index',compact('tasks','status'));
     }
@@ -55,7 +56,11 @@ class EmptaskController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
-        return view('tasks.show',compact('task'));
+        
+        $extension = pathinfo(storage_path($task->task_attach), PATHINFO_EXTENSION);
+
+        
+        return view('tasks.show',compact('task','extension'));
     }
 
     /**

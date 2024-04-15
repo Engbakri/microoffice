@@ -7,6 +7,8 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmptaskController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AdsController;
+use App\Http\Controllers\DepartmentController;
 
 Route::group(['middleware' => ['auth']], function() {
 
@@ -17,6 +19,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('tasks', TaskController::class);
+    Route::resource('ads',   AdsController::class);
+    Route::resource('departments',   DepartmentController::class);
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/logout', [DashboardController::class, 'logout'])->name('logout');

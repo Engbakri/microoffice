@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('task');
             $table->text('description')->nullable();
-            $table->integer('task_time');
+            $table->integer('time_hour')->nullable();
             $table->string('task_attach')->nullable();
             $table->timestamps();
         });

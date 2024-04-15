@@ -12,6 +12,7 @@
         <thead>
         <tr>
             <th class="text-center">المهمة</th>
+            <th class="text-center">الوقت</th>
             <th class="text-center">المدة</th>
             <th class="text-center">الموظف</th>
             <th class="text-center">الحالة</th>
@@ -22,6 +23,7 @@
         @foreach ($tasks as $task)
         <tr>
             <td><a class="text-dark" href="{{ route('employees.show',$task->id) }}">{{ $task->task }} </a></td>
+            <td>{{ Carbon\Carbon::parse($task->created_at)->diffForHumans() }}</td>
             <td class="text-center">{{ $task->task_time }}</td>
             <td class="text-center">
                 @foreach ($task->users as $employee)

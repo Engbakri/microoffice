@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
 
+
 class UserSeeder extends Seeder
 {
     /**
@@ -21,22 +22,27 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+
+     
+
         $users = [
             [
-              'name'     => 'IASS Admin',
+              'name'     => 'SSH Admin',
+              'dept'     => 1,
               'job'      => 'إدارة النظام',
               'image'    => 'files/employees/avatar.jpg',
-              'email'    => 'admin@iass.com',
-              'password' => Hash::make('iass@admin'),
+              'email'    => 'admin@ssh.com',
+              'password' => Hash::make('123456'),
               'role'     => 'admin',
               
             ],
             [
               'name'     => 'Bakri Eissa',
+              'dept'     => 2,
               'job'      => 'موظف',
               'image'    => 'files/employees/avatar.jpg',
-              'email'    => 'bakri@iass.com',
-              'password' => Hash::make('bakri@iass'),
+              'email'    => 'bakri@ssh.com',
+              'password' => Hash::make('123456'),
               'role'     => 'user',
               
             ],
@@ -48,7 +54,8 @@ class UserSeeder extends Seeder
                          'email' => $user['email']
                      ], [
                          'name'     => $user['name'],
-                         'password' => $user['password']
+                         'password' => $user['password'],
+                         'dept' => $user['dept']
                      ]);
  
                      if ($newUser->id == 1) {

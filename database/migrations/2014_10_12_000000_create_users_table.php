@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('dept');
+           // $table->foreignId('dept')->constrained('departments')->onDelete('cascade');
             $table->string('job')->default('موظف');
             $table->string('image')->nullable();
             $table->string('email')->unique();
@@ -25,6 +27,7 @@ return new class extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
+            $table->foreign('dept')->references('id')->on('departments');
         });
     }
 

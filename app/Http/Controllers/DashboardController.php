@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Task;
 use Illuminate\Support\Carbon;
 use App\Models\UsersTask;
-use DB;
+use App\Models\Ads;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -33,7 +34,7 @@ class DashboardController extends Controller
          if (Auth::user()->hasRole('admin')) {
 
             $status = UsersTask::get();
-            $tasks = Task::all();
+            $tasks = Task::orderBy('id', 'desc')->paginate(10);
             $allusers = User::all();
             $users = User::paginate(4);
             $done = UsersTask::where('status','Done')->get();
@@ -47,7 +48,7 @@ class DashboardController extends Controller
 
             $status = UsersTask::get();
             $usertasks = UsersTask::where('user_id',Auth()->user()->id)->get();
-            $tasks = Task::get();
+          //  $tasks = Task::get();
             $allusers = User::all();
             $users = User::paginate(4);
             $done = UsersTask::where('status','Done')
@@ -60,7 +61,19 @@ class DashboardController extends Controller
                         ->where('user_id',Auth()->user()->id)->get();
             $user = User::where('id',Auth()->user()->id)->first();
 
-            return view('user',compact('user','usertasks','status','allusers','users','tasks','canceled','done','working','waiting'));
+            
+ 
+           $tasks = DB::table('tasks')
+            ->join('users_tasks', 'tasks.id', '=', 'users_tasks.task_id')
+            ->where('users_tasks.user_id','=',Auth()->user()->id)
+             ->select('tasks.*', 'users_tasks.status', 'users_tasks.task_id')
+            ->paginate(10);
+
+            $ads = Ads::all();
+
+            
+
+            return view('user',compact('user','usertasks','status','allusers','users','tasks','canceled','done','working','waiting','ads'));
         }
     }
 

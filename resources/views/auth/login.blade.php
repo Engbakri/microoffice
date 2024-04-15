@@ -8,7 +8,7 @@
             <div class="card-header bg-primary">
               <div class="app-brand" >
                 <a href="https://www.iassksa.com/iass/ar/" style="text-align: center">
-                  <span class="brand-name" >نظام أكاديمية علوم الرياضة</span>
+                  <span class="brand-name"  style="font-size: 50%"ظام الاحتياجات والمراسلات  </span>
                 </a>
               </div>
             </div>

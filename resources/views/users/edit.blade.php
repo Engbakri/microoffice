@@ -17,10 +17,26 @@
         @csrf
         <input type="hidden" name="oldimage" value="{{ $user->image }}"/>
         <div class="row">
+
+            
+
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>إسم الموظف</strong>
                     <input type="text" name="name" placeholder="إسم الموظف" class="form-control" value="{{ $user->name }}">
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>إسم الموظف</strong>
+                    <select class="form-control" name="dept">
+                        <option selected disabled>إختر الادارة</option>
+                        @foreach ($depts as $dept)
+                            <option value="{{ $dept->id }}" {{ $dept->id == $user->dept ? 'selected' : '' }}>{{ $dept->dept_name }}</option>   
+                        @endforeach
+                    </select>
+                    
                 </div>
             </div>
 
@@ -38,10 +54,38 @@
                 </div>
             </div>
 
+            <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <label>صورة الموظف</label>
                 <input type="file" class="form-control" name="empimage" >
             </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="card card-default">
+                <div class="card-header card-header-border-bottom">
+                    <h2>التكليف الاداري </h2>
+                </div>
+    
+                <div class="card-body">
+                    <ul class="list-unstyled list-inline">
+                        <li class="d-inline-block mr-3">
+                            <label class="control control-radio">مدير الادارة
+                                <input value="1" type="radio" name="mgr" />
+                                <div class="control-indicator"></div>
+                            </label>
+                        </li>
+    
+                        <li class="d-inline-block mr-3">
+                            <label class="control control-radio">رئيس قسم
+                                <input value="1" type="radio"  name="secmgr" />
+                                <div class="control-indicator"></div>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">

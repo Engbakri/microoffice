@@ -22,8 +22,8 @@
         <ul class="nav navbar-nav">
           <!-- Github Link Button -->
           <li class="github-link mr-3">
-            <a class="btn btn-outline-secondary btn-sm" href="https://www.iassksa.com/iass/ar/" target="_blank">
-              <span class="d-none d-md-inline-block mr-2">موقع الاكاديمية</span>
+            <a class="btn btn-outline-secondary btn-sm" href="https://alshamalhospital.com/" target="_blank">
+              <span class="d-none d-md-inline-block mr-2">موقع المستشفى</span>
               <i class="mdi mdi-web"></i>
             </a>
 

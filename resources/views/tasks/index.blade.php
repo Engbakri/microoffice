@@ -8,12 +8,16 @@
     </div>
     </div>
     <div class="card-body pt-0 pb-5">
-    <table class="table card-table table-responsive table-responsive-large table-hover">
+    <table class="table card-table table-responsive">
         <thead>
         <tr>
             <th class="text-center">رقم</th>
-            <th class="text-center">المهمة</th>
-            <th class="text-center">المدة</th>
+            <th>المهمة</th>
+            <th class="text-center">التكليف</th>
+            <th class="text-center"><badge class="badge badge-primary d-md-block">ساعة</badge></th>
+            <th class="text-center"><badge class="badge badge-success">يوم</badge></th>
+            <th class="text-center"><badge class="badge badge-info">اسبوع</badge></th>
+            <th class="text-center"><badge class="badge badge-dark">شهر</badge></th>
             <th class="text-center">الموظف</th>
             <th class="text-center">الحالة</th>
             <th class="text-center">حالة الموظف</th>
@@ -23,7 +27,11 @@
         <tr>
             <td>{{ $index + 1 }}</td>
             <td><a class="text-dark" href="{{ route('employees.show',$task->id) }}">{{ $task->task }} </a></td>
-            <td class="text-center">{{ $task->task_time }}</td>
+            <td>{{ Carbon\Carbon::parse($task->created_at)->diffForHumans() }}</td>
+            <td class="text-center"><badge class="badge badge-primary">{{ $task->time_hour }}</badge> </td>
+            <td class="text-center"><badge class="badge badge-success">{{ $task->time_day }}</badge> </td>
+            <td class="text-center"><badge class="badge badge-info">{{ $task->time_week }}</badge> </td>
+            <td class="text-center"><badge class="badge badge-dark">{{ $task->time_month }}</badge> </td>
             <td class="text-center col-md-1">
                 @foreach ($task->users as $employee)
                     <span class="badge badge-primary m-1">{{ $employee->name }}</span> 

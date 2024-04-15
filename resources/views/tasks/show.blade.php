@@ -22,7 +22,15 @@
                     </div>
                     <div class="form-group">
                         <label >المرفق</label>
-                        <img src="{{ asset($task->task_attach) }}" width="300" height="300"/>
+                        @if ($extension == 'png' or $extension == 'jpg')
+                        <img src="{{ asset($task->task_attach) }}" width="200" height="200"/>
+                        <a href="{{ asset($task->task_attach) }}" target="_blank" class="btn btn-success">تحميل</a>
+                        @else
+                        <i class=""></i>
+                        
+                        <a href="{{ asset($task->task_attach) }}" target="_blank" class="btn btn-success">تحميل الملف</a>
+                        @endif 
+                        
                     </div>
                     <div class="form-group">
                         <label>المدة</label>

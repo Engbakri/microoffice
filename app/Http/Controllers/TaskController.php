@@ -17,7 +17,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::paginate(5);
+        $tasks = Task::orderBy('id', 'desc')->paginate(5);
         $status = UsersTask::get();
 
         return view('tasks.index', compact('tasks','status'));
@@ -31,6 +31,7 @@ class TaskController extends Controller
     public function create()
     {
         $users =User::all();
+        
        return view('tasks.create',compact('users'));
     }
 
@@ -43,8 +44,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'task' => 'required',
-            'task_time' => 'required',
+            'task' => 'required'
         ]);
 
         $task_file =  $request->file('task_attach');
@@ -61,7 +61,10 @@ class TaskController extends Controller
         $task =  Task::create([
             'task' => $request->input('task'),
             'description' => $request->input('description'),
-            'task_time' => $request->input('task_time'),
+            'time_hour' => $request->input('time_hour'),
+            'time_day' => $request->input('time_day'),
+            'time_week' => $request->input('time_week'),
+            'time_month' => $request->input('time_month'),
             'task_attach' => $last_img,
             'created_at' => Carbon::now(),
            ]);
@@ -69,7 +72,10 @@ class TaskController extends Controller
             $task =  Task::create([
                 'task' => $request->input('task'),
                 'description' => $request->input('description'),
-                'task_time' => $request->input('task_time'),
+                'time_hour' => $request->input('time_hour'),
+                'time_day' => $request->input('time_day'),
+                'time_week' => $request->input('time_week'),
+                'time_month' => $request->input('time_month'),
                 'created_at' => Carbon::now(),
                ]);
         }
@@ -119,7 +125,7 @@ class TaskController extends Controller
     {
         $request->validate([
             'task' => 'required',
-            'task_time' => 'required',
+          
         ]);
 
         $old_file =  $request->oldimage;
@@ -142,7 +148,10 @@ class TaskController extends Controller
         $task->update([
             'task' => $request->input('task'),
             'description' => $request->input('description'),
-            'task_time' => $request->input('task_time'),
+            'time_hour' => $request->input('time_hour'),
+            'time_day' => $request->input('time_day'),
+            'time_week' => $request->input('time_week'),
+            'time_month' => $request->input('time_month'),
             'task_attach' => $last_img,
             'updated_at' => Carbon::now(),
            ]);
@@ -151,7 +160,10 @@ class TaskController extends Controller
             $task->update([
                 'task' => $request->input('task'),
                 'description' => $request->input('description'),
-                'task_time' => $request->input('task_time'),
+                'time_hour' => $request->input('time_hour'),
+                'time_day' => $request->input('time_day'),
+                'time_week' => $request->input('time_week'),
+                'time_month' => $request->input('time_month'),
                 'updated_at' => Carbon::now(),
                ]);
         }

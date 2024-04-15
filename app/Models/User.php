@@ -12,6 +12,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -28,10 +30,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'dept',
         'job',
         'image',
         'email',
         'password',
+        'mgr',
+        'secmgr'
     ];
 
     /**
@@ -65,7 +70,7 @@ class User extends Authenticatable
     ];
 
 
-    public function tasks()
+    public function tasks(): BelongsToMany
     {
         return $this->belongsToMany(Task::class, 'users_tasks');
     }
@@ -74,4 +79,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contact::class);
     }
+
+    public function ads(): HasMany
+    {
+        return $this->hasMany(Ads::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class,'dept','id');
+    }
+
 }

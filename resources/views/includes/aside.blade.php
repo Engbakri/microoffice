@@ -21,7 +21,7 @@
             </g>
           </svg> --}}
           <img src="{{ asset('images/logo.png') }}" width="50" height="33"/>
-          <span class="brand-name">أكاديمية علوم الرياضة</span>
+          <span class="brand-name"> مستشفى الشمال </span>
         </a>
       </div>
       <!-- begin sidebar scrollbar -->
@@ -161,6 +161,26 @@
               </ul>
             </li>
 
+            <li  class="has-sub" >
+              <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#ads"
+                aria-expanded="false" aria-controls="ads">
+                <i class="mdi mdi-bulletin-board"></i>
+                <span class="nav-text">لوحة الاعلان</span> <b class="caret"></b>
+              </a>
+              <ul  class="collapse"  id="ads"
+                data-parent="#sidebar-menu">
+                <div class="sub-menu">  
+                      <li >
+                        <a class="sidenav-item-link" href="{{ route('ads.index') }}">
+                          <span class="nav-text">الاعلانات</span>
+                        </a>
+                      </li>
+                         
+                </div>
+              </ul>
+            </li>
+            
+
             @elseif(Auth::user()->hasRole('user'))
             <li  class="has-sub" >
               <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#dashboard"
@@ -184,7 +204,7 @@
               <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#tasks"
                 aria-expanded="false" aria-controls="tasks">
                 <i class="mdi mdi-calendar-clock"></i>
-                <span class="nav-text">المهام</span> <b class="caret"></b>
+                <span class="nav-text">المهمــــات</span> <b class="caret"></b>
               </a>
               <ul  class="collapse"  id="tasks"
                 data-parent="#sidebar-menu">
@@ -193,6 +213,10 @@
                   
                     
                       <li >
+                        <a class="sidenav-item-link" href="{{ url('tasks') }}">
+                          <span class="nav-text">التكليف</span>
+                          
+                        </a>
                         <a class="sidenav-item-link" href="{{ url('employees') }}">
                           <span class="nav-text">المهام</span>
                           
@@ -205,6 +229,7 @@
                 </div>
               </ul>
             </li>
+            
             <li  class="has-sub" >
               <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#contacts"
                 aria-expanded="false" aria-controls="contacts">
@@ -213,10 +238,7 @@
               </a>
               <ul  class="collapse"  id="contacts"
                 data-parent="#sidebar-menu">
-                <div class="sub-menu">
-                  
-                  
-                    
+                <div class="sub-menu">  
                       <li >
                         <a class="sidenav-item-link" href="{{ route('contacts') }}">
                           <span class="nav-text">بريدي</span>
@@ -228,11 +250,25 @@
                           <span class="nav-text">إنشاء رسالة</span>
                           
                         </a>
+                      </li>    
+                </div>
+              </ul>
+            </li>
+            <li  class="has-sub" >
+              <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#ads"
+                aria-expanded="false" aria-controls="ads">
+                <i class="mdi mdi-bulletin-board"></i>
+                <span class="nav-text">لوحة الاعلان</span> <b class="caret"></b>
+              </a>
+              <ul  class="collapse"  id="ads"
+                data-parent="#sidebar-menu">
+                <div class="sub-menu">  
+                      <li >
+                        <a class="sidenav-item-link" href="{{ route('ads.index') }}">
+                          <span class="nav-text">الاعلانات</span>
+                        </a>
                       </li>
-                    
-                  
-
-                  
+                         
                 </div>
               </ul>
             </li>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use DB;
 
 
 class ContactController extends Controller
@@ -13,7 +14,12 @@ class ContactController extends Controller
 
     public function index()
     {
-        $messages = Contact::where('recever',Auth()->user()->id)->get();
+        //$messages = Contact::where('recever',Auth()->user()->id)->get();
+
+        $messages = DB::table('contacts')
+                             ->groupBy('sender')
+                             ->where('sender',Auth()->user()->id)
+                             ->get();
         return view('contacts.index',compact('messages'));
     }
 
@@ -57,10 +63,16 @@ class ContactController extends Controller
 
     public function show($id)
     {
-        $users = User::all();
-        $messages = Contact::where('recever',Auth()->user()->id)
-                         ->Orwhere('sender' ,Auth()->user()->id)->get();
-        return view('contacts.show',compact('messages','users'));
+        $contact = Contact::find($id);
+
+        //dd($contact);
+        $users= User::all();
+        $messages = Contact::where('recever',$contact->recever)
+                         ->where('sender' ,$contact->sender)
+                         ->Orwhere('sender',$contact->recever)
+                        // ->Orwhere('recever',$contact->sender)
+                         ->get();
+        return view('contacts.show',compact('messages','users','contact'));
     }
 
     

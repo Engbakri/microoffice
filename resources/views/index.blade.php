@@ -118,7 +118,7 @@
                           </div>
                     </div>
                   </div>
-                  <div class="card-body pt-0">
+                  <div class="card-body pt-0" style="overflow-y:scroll;">
                     <table class="table ">
                      
                       @foreach ($tasks as $index=>$task)
@@ -156,7 +156,7 @@
                     </table>
                   </div>
                   <div class="card-footer">
-                     
+                     {{ $tasks->links() }}
                   </div>
                 </div>
               </div>

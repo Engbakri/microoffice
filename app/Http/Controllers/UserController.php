@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Department;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,16 +13,17 @@ class UserController extends Controller
     public function index()
     {
       $users = User::whereHas('roles', function($query){
-                $query->where('name', 'user');
-              })->paginate(5);
+                $query->Orwhere('name', 'user');
+              })->paginate(10);
 
       return view('users.index', compact('users'));
     }
 
     public function create()
     {
+        $departments = Department::all();
         $roles = Role::get(['id', 'name']);
-        return view('users.create', compact('roles'));
+        return view('users.create', compact('roles','departments'));
     }
 
     public function store(Request $request)
@@ -38,19 +40,25 @@ class UserController extends Controller
         $emp_file->move($up_location,$img_name);
 
         $user = User::create([
-                  'name'      =>  $request->name,
-                  'job'      =>  $request->job,
+                  'name'       =>  $request->name,
+                  'dept'       => $request->dept,
+                  'job'        =>  $request->job,
                   'image'      =>  $last_img,
-                  'email'     =>  $request->email,
-                  'password'  =>  Hash::make($request->password),
+                  'email'      =>  $request->email,
+                  'password'   =>  Hash::make($request->password),
+                  'mgr'        => $request->mgr,
+                  'secmgr'        => $request->secmgr
                 ]);
             } else {
                 $user = User::create([
                     'name'      =>  $request->name,
+                    'dept'      => $request->dept,
                     'job'       =>  $request->job,
                     'image'     =>  'files/employees/avatar.jpg',
                     'email'     =>  $request->email,
                     'password'  =>  Hash::make($request->password),
+                    'mgr'        => $request->mgr,
+                    'secmgr'        => $request->secmgr
                   ]);
                 }
             
@@ -71,8 +79,9 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::get(['id', 'name']);
         $userRoles = $user->roles->pluck('id')->toArray();
+        $depts = Department::all();
 
-        return view('users.edit', compact('user', 'roles', 'userRoles'));
+        return view('users.edit', compact('user', 'roles', 'userRoles','depts'));
     }
 
     public function update(Request $request)
@@ -95,12 +104,14 @@ class UserController extends Controller
 
             $user->update([
                 'name'  => $request->name,
+                'dept'      => $request->dept,
                 'job'   => $request->job,
                 'image' => $last_img
                 ]); 
             } else {
             $user->update([
                 'name' => $request->name,
+                'dept'      => $request->dept,
                 'job' => $request->job
             ]);
         }

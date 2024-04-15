@@ -13,6 +13,8 @@
         <tr>
                <th>رقم</th>
                <th>الاسم</th>
+               <th>الادارة</th>
+               <th>التلكيف</th>
                <th>البريد</th>
                <th>الصلاحية</th>
                <th width="280px">العمليات</th>
@@ -22,6 +24,15 @@
               <tr>
                 <td>{{ ++$key }}</td>
                 <td>{{ $user->name }}</td>
+                <td>{{ $user->department->dept_name }}</td>
+                @if($user->mgr ==1)
+                <td>{{ 'مدير ' }} {{ $user->department->dept_name }}</td>
+                @elseif ($user->secmgr == 1)
+                <td>{{ 'رئيس قسم' }} {{ $user->job }}</td>
+                @else
+                <td>{{ 'موظف بقسم' }} {{ $user->job }}</td>
+                @endif
+
                 <td>{{ $user->email }}</td>
                 <td>
                   @if(!empty($user->getRoleNames()))

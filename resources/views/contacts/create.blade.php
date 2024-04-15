@@ -1,5 +1,7 @@
 @extends('layouts.dashboard')
+@section('css')
 
+@endsection
 @section('content')
 
 <div class="row">
@@ -21,9 +23,9 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" >
                         <label for="exampleFormControlTextarea1">نص الرسالة</label>
-                        <textarea class="form-control" name="message" rows="3"></textarea>
+                        <textarea class="form-control ck-editor__editable_inline" name="message" rows="10"  id="froala"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">ارفاق صورة</label>

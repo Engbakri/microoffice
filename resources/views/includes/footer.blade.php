@@ -1,12 +1,12 @@
 <footer class="footer mt-auto">
     <div class="copyright bg-white">
       <p>
-        &copy; <span id="copy-year">2022</span> جميع الحقوق محفوظة 
+        &copy; <span id="copy-year">2024</span> جميع الحقوق محفوظة 
         <a
           class="text-primary"
           href="http://www.iassksa.com/iass/"
           target="_blank"
-          >لأكاديمية علوم الرياضة </a
+          >  مستشفى الشمال التخصصي - مركز المعلومات </a
         >.
       </p>
     </div>

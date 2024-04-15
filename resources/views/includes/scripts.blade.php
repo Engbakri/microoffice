@@ -83,4 +83,126 @@
           , timeout: 8000
       })
   });
+
+  @yield('js')
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script language="JavaScript">
+            // Listen for click on toggle checkbox
+        $('#select-all').click(function(event) {   
+            if(this.checked) {
+                // Iterate each checkbox
+                $(':checkbox').each(function() {
+                    this.checked = true;                        
+                });
+            } else {
+                $(':checkbox').each(function() {
+                    this.checked = false;                       
+                });
+            }
+        });
 </script>
+<script>
+    ClassicEditor
+    .create( document.querySelector( '#editor' ), {
+        language: {
+            // The UI will be English.
+            ui: 'en',
+
+            // But the content will be edited in Arabic.
+            content: 'ar'
+        }
+    } )
+    .then( editor => {
+        window.editor = editor;
+    } )
+    .catch( err => {
+        console.error( err.stack );
+    } );
+</script>
+
+<script type='text/javascript' src="{{ asset('froala/froala_editor.min.js') }}"></script>  	
+      <script>
+        const username = userName();
+
+let error, during_error;
+
+function initEditor(){
+  error = false;
+  const  codox1 = new Codox();
+  window.codox1 = codox1;
+  let editor = new FroalaEditor('#editor1', {
+    key: "mPD4tE1F2D1E1I2B4ssD-13vvdpxB3qvfA4A3G3I3F2B6B3C4C3A2==",
+    height: 300,
+    documentReady: true,
+    //add events configuration
+    events: {
+      //setting up on initialization event
+      'initialized': function() {
+        //Adding Wave configuration
+        var config = {
+          "docId"    : "3e6bd2d0990423c9c16a35985140775f",
+          "username" : username,
+          "editor"   : editor,
+          "apiKey"   : "58e429b0-be4a-4cd8-8c8d-9a37fb0adec0",
+          "app"      : "froala",
+        };
+        //start!
+        codox1.init(config);
+      }
+    }
+  });
+
+  codox1.on('users_update', function(users){
+    console.log('site1 users', users)
+  });
+
+  codox1.on("error", function(data){
+    if (data.message === 'max_sessions_exceeded'){
+      //emitted whenever it is over the montly quota
+      console.log('max_sessions_exceeded');
+            $('.co-editor-demo-message').html('We are sorry, The real-time collaboration demo will not work because number of sessions is over the monthly quota in our codox.io plan.').show();
+
+    }else if (data.message === 'session_full'){
+      //emitted whenever remote changes have updated the document
+      $('.co-editor-demo-message').html('The real-time collaboration demo will not work because the number of users exceeds the allowed number of users/session in the codox.io plan we subscribed to, Wait a little until one of the users leaves the page.').show();
+
+      if (editor) {
+        editor.destroy();
+        codox1.stop();
+        error = 'session_is_full';
+      }      
+    }
+  });
+  
+}
+
+
+function displayEditor(){
+
+    $('#editor1').fadeIn();
+  	clearInterval(during_error);
+    $('.co-editor-demo-message').hide();
+
+}
+
+   
+function userName() {
+  const names = ['Andy','David','Kegan','Yann', 'Robert'];
+  const index = Math.floor(Math.random() * 5);
+  return names[index];
+
+}
+
+
+$(function() {
+	initEditor();
+  during_error = setInterval(function(){ 
+    if (error === 'session_is_full') {
+     initEditor();
+    }else{
+    	displayEditor()
+    }
+  }, 10000);
+});
+      </script>	
