@@ -16,13 +16,13 @@
                    @csrf
                     <div class="form-group">
                         <label for="exampleFormControlSelect12">إرسال الي :</label>
-                        <select class="form-control" name="recever">
+                        <select class="js-example-basic-multiple form-control" name="recever">
                             @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>   
+                                <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->department->dept_name }}</option>   
                             @endforeach
                         </select>
                     </div>
-
+                    <input type="hidden" name="message_status" value="0" />
                     <div class="form-group" >
                         <label for="exampleFormControlTextarea1">نص الرسالة</label>
                         <textarea class="form-control" name="message" rows="10"  id="editor"></textarea>

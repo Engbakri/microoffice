@@ -106,13 +106,21 @@ class UserController extends Controller
                 'name'  => $request->name,
                 'dept'      => $request->dept,
                 'job'   => $request->job,
-                'image' => $last_img
+                'image' => $last_img,
+                'email'      =>  $request->email,
+                'password'   =>  Hash::make($request->password),
+                'mgr'        => $request->mgr,
+                'secmgr'     => $request->secmgr
                 ]); 
             } else {
             $user->update([
                 'name' => $request->name,
                 'dept'      => $request->dept,
-                'job' => $request->job
+                'job' => $request->job,
+                'email'      =>  $request->email,
+                'password'   =>  Hash::make($request->password),
+                'mgr'        => $request->mgr,
+                'secmgr'        => $request->secmgr
             ]);
         }
         $user->syncRoles($request->input('roles'));

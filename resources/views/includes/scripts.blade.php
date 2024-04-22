@@ -105,6 +105,7 @@
 <script>
     ClassicEditor
     .create( document.querySelector( '#editor' ), {
+        
       toolbar: {
     items: [
         'undo', 'redo',
@@ -124,7 +125,7 @@
 
             // But the content will be edited in Arabic.
             content: 'ar'
-        },
+        }
        
 		
     } )

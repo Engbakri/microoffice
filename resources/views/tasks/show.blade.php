@@ -32,17 +32,44 @@
                         @endif 
                         
                     </div>
-                    <div class="form-group">
-                        <label>المدة</label>
-                        <input type="text" value="{{ $task->task_time }}" class="form-control" disabled>
+    </div>
+    <label>مدة التنفيذ:</label>
+                            
+                    <div class="row">
+                        
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            
+                            <input type="text" value="{{ $task->time_hour ?? 0 }} ساعة" class="form-control" disabled> 
+                        </div>
                     </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            
+                            <input type="text" value="{{ $task->time_day ?? 0 }} يوم" class="form-control" disabled> 
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <input type="text" value="{{ $task->time_week ?? 0 }} اسبوع" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <input type="text" value="{{ $task->time_month ?? 0  }} شهر" class="form-control" disabled>
+                        
+                        </div>
+                    </div>
+                </div>
+                    
+                   
                    
           
         
 
       
 
-    </div>
+    
 </div>
 </div>
 </div>

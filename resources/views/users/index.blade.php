@@ -27,7 +27,7 @@
                 <td>{{ $user->department->dept_name }}</td>
                 @if($user->mgr ==1)
                 <td>{{ 'مدير ' }} {{ $user->department->dept_name }}</td>
-                @elseif ($user->secmgr == 1)
+                @elseif ($user->secmgr == 2)
                 <td>{{ 'رئيس قسم' }} {{ $user->job }}</td>
                 @else
                 <td>{{ 'موظف بقسم' }} {{ $user->job }}</td>

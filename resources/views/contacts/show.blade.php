@@ -35,13 +35,25 @@
               <a href="profile.html"><h6 class="mt-0 text-dark font-weight-medium">{{ \App\Models\User::where(['id' => $message->sender])->first()->name }}</h6></a>
               <small>{{ \App\Models\User::where(['id' => $message->sender])->first()->email }}</small>
              <p>{{ $message->message }}</p>
+              <br>
+            @if ($message->image)
+                @if ($extension == 'png' or $extension == 'jpg')
+                <a href="{{ asset($message->image) }}" target="_blank" class="btn btn-success btn-sm"> <i class="mdi mdi-cloud-download"></i> تحميل الصورة</a>
+                @else
+                <a href="{{ asset($message->image) }}" target="_blank" class="btn btn-success btn-sm"> <i class="mdi mdi-cloud-download"></i> تحميل الملف</a>
+                @endif
+              @endif
 
+              
+            
             </div>
+           
           </div>
         </td>
         <td ></td>
         <td class="text-dark d-none d-md-block">{{ Carbon\Carbon::parse($message->created_at)->diffForHumans() }}</td>
       </tr>
+      
 
     @endforeach
 
@@ -50,7 +62,22 @@
   
   <form action="{{ route('contacts.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <input type="hidden" name="recever" value="{{ $contact->recever }}" />
+
+    <input type="hidden" name="message_status" value="{{ $message_status }}" />
+
+    @if ($message_status == 1)
+    <input type="hidden" name="sender" value="{{ $messages[0]->sender }}" />
+      
+    @else
+    <input type="hidden" name="recever" value="{{ $messages[0]->recever }}" />
+    @endif
+    
+
+  
+
+     
+    
+    
      <div class="form-group">
          <label for="exampleFormControlTextarea1">نص الرسالة</label>
          <textarea class="form-control" name="message" rows="3"></textarea>
@@ -60,8 +87,10 @@
          <input type="file" name="image" class="form-control-file" >
      </div>
      <div class="form-footer pt-4 pt-5 mt-4 border-top">
-         <button type="submit" class="btn btn-primary btn-default">إسال</button>
-         <button type="submit" class="btn btn-secondary btn-default">رجوع</button>
+      
+         <button type="submit" class="btn btn-primary btn-default"><i class="mdi mdi-send"></i> أرسال</button>
+
+         <button type="submit" class="btn btn-secondary btn-default"> <i class="mdi mdi-keyboard-backspace"></i> رجوع</button>
      </div>
  </form>
  

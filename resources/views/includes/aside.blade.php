@@ -89,18 +89,22 @@
                   
                   
                     
-                      <li >
-                        <a class="sidenav-item-link" href="{{ route('contacts') }}">
-                          <span class="nav-text">بريدي</span>
-                          
-                        </a>
-                      </li>
-                      <li >
-                        <a class="sidenav-item-link" href="{{ route('contacts.create') }}">
-                          <span class="nav-text">إنشاء رسالة</span>
-                          
-                        </a>
-                      </li>
+                  <li >
+                    <a class="sidenav-item-link" href="{{ route('inbox') }}">
+                      <span class="nav-text">البريد الوارد</span>
+                    </a>
+                  </li>
+                  <li >
+                    <a class="sidenav-item-link" href="{{ route('outbox') }}">
+                      <span class="nav-text">البريد الصادر</span>
+                    </a>
+                  </li>
+                  <li >
+                    <a class="sidenav-item-link" href="{{ route('contacts.create') }}">
+                      <span class="nav-text">إنشاء رسالة</span>
+                      
+                    </a>
+                  </li> 
                     
                   
 
@@ -240,9 +244,13 @@
                 data-parent="#sidebar-menu">
                 <div class="sub-menu">  
                       <li >
-                        <a class="sidenav-item-link" href="{{ route('contacts') }}">
-                          <span class="nav-text">بريدي</span>
-                          
+                        <a class="sidenav-item-link" href="{{ route('inbox') }}">
+                          <span class="nav-text">البريد الوارد</span>
+                        </a>
+                      </li>
+                      <li >
+                        <a class="sidenav-item-link" href="{{ route('outbox') }}">
+                          <span class="nav-text">البريد الصادر</span>
                         </a>
                       </li>
                       <li >

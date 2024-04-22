@@ -29,9 +29,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/task/delete/{id}',[TaskController::class,'delete'])->name('task.delete');
 
     Route::get('/contacts', [contactController::class, 'index'])->name('contacts');
+    Route::get('/contacts/inbox', [contactController::class, 'inbox'])->name('inbox');
+    Route::get('/contacts/outbox', [contactController::class, 'outbox'])->name('outbox');
     Route::get('/contacts/create', [contactController::class, 'create'])->name('contacts.create');
     Route::post('/contacts/store', [contactController::class, 'store'])->name('contacts.store');
-    Route::get('/contacts/show/{id}', [contactController::class, 'show'])->name('contacts.show');
+    Route::get('/contacts/show/{id}/{message_status}', [contactController::class, 'show'])->name('contacts.show');
 });
 
 

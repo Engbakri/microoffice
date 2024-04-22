@@ -50,9 +50,22 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>الايميل</strong>
-                    <input type="email" name="email" placeholder="البريد الالكتروني" class="form-control" readonly value="{{ $user->email }}">
+                    <input type="email" name="email" placeholder="البريد الالكتروني" class="form-control" value="{{ $user->email }}">
                 </div>
             </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="form-group">
+                <label>كلمة المرور</label>
+                <input type="password" class="form-control" name="password" placeholder="كلمة المرور">
+            </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="form-group">
+                <label>تأكيد كلمة المرور</label>
+                <input type="password" class="form-control" name="password_confirmation" placeholder=" تأكيد كلمة المرور">
+            </div>
+            </div>
+
 
             <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
@@ -77,7 +90,7 @@
     
                         <li class="d-inline-block mr-3">
                             <label class="control control-radio">رئيس قسم
-                                <input value="1" type="radio"  name="secmgr" />
+                                <input value="2" type="radio"  name="secmgr" />
                                 <div class="control-indicator"></div>
                             </label>
                         </li>
@@ -99,7 +112,9 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <i class="mdi mdi-alert">
                 <button type="submit" class="btn btn-primary">تعديل</button>
+                </i>
             </div>
         </div>
     </form>
