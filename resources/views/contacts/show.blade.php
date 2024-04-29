@@ -7,16 +7,14 @@
 <div class="card-header justify-content-between ">
   <h2>الرسائل</h2>
   <div>
-      <button class="text-black-50 mr-2 font-size-20">
+      <a class="text-black-50 mr-2 font-size-20" href="{{ route('inbox') }}" >
         <i class="mdi mdi-cached"></i>
-      </button>
+      </a>
       <div class="dropdown show d-inline-block widget-dropdown">
-          <a class="dropdown-toggle icon-burger-mini" href="#" role="button" id="dropdown-customar"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+          <a class="dropdown-toggle icon-burger-mini" href="{{ route('inbox') }}" role="button" id="dropdown-customar"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
           </a>
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-customar">
-            <li class="dropdown-item"><a  href="#">Action</a></li>
-            <li class="dropdown-item"><a  href="#">Another action</a></li>
-            <li class="dropdown-item"><a  href="#">Something else here</a></li>
+            <li class="dropdown-item"><a  href="{{ route('inbox') }}">رجوع</a></li>
           </ul>
         </div>
   </div>
@@ -34,6 +32,8 @@
             <div class="media-body align-self-center">
               <a href="profile.html"><h6 class="mt-0 text-dark font-weight-medium">{{ \App\Models\User::where(['id' => $message->sender])->first()->name }}</h6></a>
               <small>{{ \App\Models\User::where(['id' => $message->sender])->first()->email }}</small>
+              <br>
+              <small>{{ $message->created_at }}</small>
              <p>{{ $message->message }}</p>
               <br>
             @if ($message->image)

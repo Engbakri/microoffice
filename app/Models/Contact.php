@@ -13,7 +13,8 @@ class Contact extends Model
         'sender',
         'recever',
         'message',
-        'image'
+        'image',
+        'status_show'
     ];
 
 

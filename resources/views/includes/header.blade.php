@@ -41,10 +41,13 @@
                 </a>
               </li>
               <li>
+                {{-- @foreach ($new_messages as $new_message)
                 <a href="{{ route('contacts') }}">
-                  <i class="mdi mdi-account-remove"></i> رسالة جديدة
+                  <i class="mdi mdi-account-remove"></i> {{ $new_message->sender }}
                   <span class=" font-size-12 d-inline-block float-right"><i class="mdi mdi-clock-outline"></i> 07 AM</span>
                 </a>
+                @endforeach --}}
+                
               </li>
              
             </ul>
@@ -75,7 +78,7 @@
                 </a>
               </li>
               <li>
-                <a href="{{ route('contacts') }}"> <i class="mdi mdi-email"></i> بريدي </a>
+                <a href="{{ route('inbox') }}"> <i class="mdi mdi-email"></i> بريدي </a>
               </li>
               <li>
                 <a href="#"> <i class="mdi mdi-settings"></i> الاعدادات </a>

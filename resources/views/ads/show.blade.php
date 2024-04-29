@@ -18,9 +18,15 @@
                     </div>
                     <div class="form-group">
                         <label >التفاصيل</label>
-                        <textarea class="form-control" rows="3" disabled>{{ $ads->ads_desc }}</textarea>
+                        <textarea class="form-control" rows="10" disabled>{{ $ads->ads_desc }}</textarea>
                     </div>
+
+                
+                    @if($extension == null)
+                        <br>
+                    @else
                     <div class="form-group">
+                        
                         <label >المرفق</label>
                         @if ($extension == 'png' or $extension == 'jpg')
                         <img src="{{ asset($ads->ads_image) }}" width="200" height="200"/>
@@ -32,10 +38,27 @@
                         @endif 
                         
                     </div>
+                    @endif
+                    <div class="row">
+                    <div class="col-lg-6 col-m-6 col-sm-12">
                     <div class="form-group">
-                        <label>المدة</label>
-                        <input type="text" value="{{ $ads->ads_userid }}" class="form-control" disabled>
+                        <label>تم النشر بواسطة</label>
+                        <input type="text" value="{{ $ads->user->name }}" class="form-control" disabled>
                     </div>
+                    </div>
+                    <div class="col-lg-3 col-m-6 col-sm-12">
+                        <div class="form-group">
+                            <label>التاريخ</label>
+                            <input type="text" value="{{ $ads->created_at }}" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-m-6 col-sm-12">
+                        <div class="form-group">
+                            <label>المدة</label>
+                            <input type="text" value="{{ $ads->created_at->diffForHumans() }}" class="form-control" disabled>
+                        </div>
+                    </div>
+            </div>
     </div>
 </div>
 </div>

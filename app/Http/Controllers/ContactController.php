@@ -96,6 +96,13 @@ class ContactController extends Controller
                          ->where('sender',$contact->sender)
                          ->get();
         
+       if( $contact->status_show == 1){
+        $contact->update([
+            'status_show' => 0
+        ]);
+       } 
+
+        
     
         return view('contacts.show',compact('messages','users','contact','extension','message_status'));
     }
@@ -124,8 +131,29 @@ class ContactController extends Controller
         $messages = DB::table('contacts')
                     ->groupBy('sender')
                     ->where('recever',Auth()->user()->id)
+                    ->where('status_show',1)
+                    ->orderBy('id','DESC')
                     ->get();
-                  //  dd( $messages);
+
+               // dd($messages[0]->id > 0);
+
+                if($messages->count() > 0) {
+                    $messages = DB::table('contacts')
+                    ->groupBy('sender')
+                    ->where('recever',Auth()->user()->id)
+                    ->where('status_show',1)
+                    ->orderBy('id','DESC')
+                    ->get();
+                } else {
+                    $messages = DB::table('contacts')
+                    ->groupBy('sender')
+                    ->where('recever',Auth()->user()->id)
+                    ->where('status_show',0)
+                    ->orderBy('id','DESC')
+                    ->get();
+
+                }
+
                   $message_status = 1;
             return view('contacts.inbox',compact('messages','message_status'));
     }

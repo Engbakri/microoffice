@@ -17,16 +17,29 @@
                <th>الزمن</th>
         </tr>
         
-        
+
+       
              @foreach ($messages as $key => $message)
-              <tr>
-                <td>{{ $key+1 }}</td>
-                <td>{{ \App\Models\User::where(['id' => $message->sender])->first()->name }}</td>
-                <td> <a href="{{ route('contacts.show',[$message->id,$message_status]) }}">{{ $message->message }}</a></td>
-                <td class="col-md-2">{{ Carbon\Carbon::parse($message->created_at)->diffForHumans() }}</td>
-                
-              </tr>
+                <tr>
+                    <td>{{ $key+1 }}</td>
+                    <td>{{ \App\Models\User::where(['id' => $message->sender])->first()->name }}</td>
+                    <td> <a href="{{ route('contacts.show',[$message->id,$message_status]) }}">{{ $message->message }}</a></td>
+                    <td class="col-md-2">{{ Carbon\Carbon::parse($message->created_at)->diffForHumans() }}</td>
+                    <td>
+                        @if ($message->status_show == 1)
+                        <button class="badge badge-success">رسالة جديدة</button>
+                        @else
+                        <button class="badge badge-secondary">لا رسائل جديدة</button>
+                        @endif
+                    
+                    </td>
+                    
+                </tr>
              @endforeach
+        
+
+
+
             </table>
         </div>
     </div>

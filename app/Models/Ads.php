@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Ads extends Model
 {
@@ -17,8 +18,8 @@ class Ads extends Model
         'ads_userid'
     ];
 
-    public function post(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(User::class,'ads_userid','id');
     }
 }
