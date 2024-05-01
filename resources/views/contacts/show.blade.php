@@ -7,8 +7,8 @@
 <div class="card-header justify-content-between ">
   <h2>الرسائل</h2>
   <div>
-      <a class="text-black-50 mr-2 font-size-20" href="{{ route('inbox') }}" >
-        <i class="mdi mdi-cached"></i>
+      <a class="btn btn-primary btn-sm" href="{{ route('inbox') }}" >
+        رجوع
       </a>
       <div class="dropdown show d-inline-block widget-dropdown">
           <a class="dropdown-toggle icon-burger-mini" href="{{ route('inbox') }}" role="button" id="dropdown-customar"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
@@ -66,10 +66,10 @@
     <input type="hidden" name="message_status" value="{{ $message_status }}" />
 
     @if ($message_status == 1)
-    <input type="hidden" name="sender" value="{{ $messages[0]->sender }}" />
+    <input type="hidden" name="sender[]" value="{{ $messages[0]->sender }}" />
       
     @else
-    <input type="hidden" name="recever" value="{{ $messages[0]->recever }}" />
+    <input type="hidden" name="recever[]" value="{{ $messages[0]->recever }}" />
     @endif
     
 

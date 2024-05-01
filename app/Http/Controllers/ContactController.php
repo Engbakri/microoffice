@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Carbon\Carbon;
 use DB;
 
 
@@ -35,12 +36,23 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
+
+     
+    if($request->recever){
+        $con = count($request->recever);
+    } else {
+        $con = count($request->sender);
+    }
+
+  
+
+    for ($i = 0; $i < $con; $i++) {
         $message_file =  $request->file('image');
 
         if($request->message_status == 1){
-            $recever = $request->sender;
+            $recever[$i] = $request->sender[$i];
         } else {
-            $recever = $request->recever;
+            $recever[$i] = $request->recever[$i];
         } 
 
      //   dd($request);
@@ -55,30 +67,36 @@ class ContactController extends Controller
         }
 
         if($message_file){
-        $name_gen = hexdec(uniqid());
-        $img_ext = strtolower($message_file->getClientOriginalExtension());
-        $img_name = $name_gen.'.'.$img_ext;
-        $up_location = 'files/contacts/';
-        $last_img = $up_location.$img_name;
-        $message_file->move($up_location,$img_name);
+            $name_gen = hexdec(uniqid());
+            $img_ext = strtolower($message_file->getClientOriginalExtension());
+            $img_name = $name_gen.'.'.$img_ext;
+            $up_location = 'files/contacts/';
+            $last_img = $up_location.$img_name;
+            $message_file->move($up_location,$img_name);
 
-       
-        
-        Contact::create([
-            'sender' => $sender,
-            'recever' => $recever,
-            'message' => $msg,
-            'image'   => $last_img
-        ]);
-         } else {
-            Contact::create([
+            $answers[] = [
                 'sender' => $sender,
-                'recever' => $recever,
-                'message' => $msg
-            ]);
+                'recever' => $recever[$i],
+                'message' => $msg,
+                'image'   => $last_img,
+                'created_at' => Carbon::now()
+            ];
+         } else {
+            $answers[] = [
+                'sender' => $sender,
+                'recever' => $recever[$i],
+                'message' => $msg,
+                'created_at' => Carbon::now()
+            ];
          }
+        }
 
-        return redirect()->back()->with('success','تم إرسال الرسالة');
+    
+
+       // dd($answers);
+        Contact::insert($answers);
+
+        return redirect()->back()->with('message','تم إرسال الرسالة');
     }
 
 

@@ -16,7 +16,7 @@
                    @csrf
                     <div class="form-group">
                         <label for="exampleFormControlSelect12">إرسال الي :</label>
-                        <select class="js-example-basic-multiple form-control" name="recever">
+                        <select class="js-example-basic-multiple form-control select2" name="recever[]"  multiple="multiple">
                             @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->department->dept_name }}</option>   
                             @endforeach
