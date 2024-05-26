@@ -7,8 +7,7 @@ use App\Models\Contact;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Carbon\Carbon;
-use DB;
-
+use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
@@ -44,10 +43,25 @@ class ContactController extends Controller
         $con = count($request->sender);
     }
 
+    $message_file =  $request->file('image');
+
+    if($message_file){
+        $name_gen = hexdec(uniqid());
+        $img_ext = strtolower($message_file->getClientOriginalExtension());
+        $img_name = $name_gen.'.'.$img_ext;
+        $up_location = 'files/contacts/';
+        $last_img = $up_location.$img_name;
+        $message_file->move($up_location,$img_name);
+    }
+
+
+      // dd($message_file);
+       
+        
   
 
     for ($i = 0; $i < $con; $i++) {
-        $message_file =  $request->file('image');
+        
 
         if($request->message_status == 1){
             $recever[$i] = $request->sender[$i];
@@ -67,12 +81,7 @@ class ContactController extends Controller
         }
 
         if($message_file){
-            $name_gen = hexdec(uniqid());
-            $img_ext = strtolower($message_file->getClientOriginalExtension());
-            $img_name = $name_gen.'.'.$img_ext;
-            $up_location = 'files/contacts/';
-            $last_img = $up_location.$img_name;
-            $message_file->move($up_location,$img_name);
+        
 
             $answers[] = [
                 'sender' => $sender,
